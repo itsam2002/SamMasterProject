@@ -1,38 +1,77 @@
-# SamMasterProject
-Combined all the logic
+# Lession 2: APPLICATION.PROPERTIES OR APPLICATION.YML
 
-# Lession1 - FAT JAR and Java Parent
+If you want to keep your application.properties file outside resources then you have to specify location of that file in main class. But if you create Config folder under /src/main/resource and place your property file there then you don't need to mention. It will recognize file and load application.
 
-### **JAR vs. FAT JAR**
+@SpringBootApplication
+@PropertySource("/dev/application.properties")
+public class SamdurgeshdemoApplication  {
 
-**JAR**
+    @Autowired
+    private CalcService calcService;
 
-JAR doesn't have everything about your project
-
-**FAT JAR** contains everything classes, pom, application.properties
-
-java -jar <project-name-snapshot.jar>
-
-**FAT JAR**
-
-To create FAT JAR you have to add SpringBoot Maven Plugin in POM
-
-<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-maven-plugin -->
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-maven-plugin</artifactId>
-    <version>4.0.0</version>
-</dependency>
+    public static void main(String[] args) {SpringApplication.run(SamdurgeshdemoApplication.class, args);
+    }
 
 
-### **SPRING-BOOT-STARTER-PARENT**
 
-When you put PARENT in POM then you don't have to give version to other dependencies. It will inherit from parent.
+public class MyApp {
 
-<parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>4.0.0</version>
-    <relativePath/> <!-- lookup parent from repository -->
-</parent>
+    @Value("SamApp")
+    private String myAppName;
+    
+    @Value("1.0")
+    private int myAppVersion;
+    
+    @Value("MySpringBoot App")
+    private String myAppDescription;
+}
 
+To get the values from application.properties
+
+Application.properties
+spring.application.name=samdurgeshdemo
+spring.security.user.name=sam
+spring.security.user.password=sam
+myapp.name=SamApp
+myapp.version=2.0
+
+
+@Component
+public class MyApp {
+
+    @Value("${myapp.name}")
+    private String myAppName;
+
+    @Value("${myapp.version}")
+    private double myAppVersion;
+
+    @Value("MySpringBoot App")
+    private String myAppDescription;
+
+    public String getMyAppName() {
+        return myAppName;
+    }
+
+
+---> To make sure it is getting value or not, you can use main class or create controller
+
+public static void main(String[] args) {
+
+    ConfigurableApplicationContext container = SpringApplication.run(SamdurgeshdemoApplication.class, args);
+    MyApp app = container.getBean(MyApp.class);
+    System.out.println(app.getMyAppName());
+    System.out.println(app.getMyAppVersion());
+    System.out.println(app.getMyAppDescription());
+}
+
+@RestController
+public class MyController {
+
+    @Autowired
+    MyApp myapp;
+
+    @RequestMapping("/appinfo")
+    public MyApp appInfo(){
+        return myapp;
+    }
+}
