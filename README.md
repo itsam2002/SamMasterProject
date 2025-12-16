@@ -1,6 +1,6 @@
 # SamMasterProject
 
-# REST API 
+# REST API Concept
 
 In Spring, @RestController, @RequestParam, and @PathVariable are annotations used for building web services.
 
