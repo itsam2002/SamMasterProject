@@ -14,6 +14,11 @@ public class EmployeeController {
     @Autowired
     Employees employees;
 
+    @GetMapping("/health")
+    public String health(){
+        return "App is UP!!!";
+    }
+
     //For one Employee only
     @GetMapping("/empinfo")
     public Employees getEmployeeInfo(){
