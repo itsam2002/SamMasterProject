@@ -4,6 +4,7 @@ import com.training.SamMasterProject.component.Employees;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -36,9 +37,28 @@ public class EmployeeController {
         return employeesArrayList;
     }
 
-    //For particular Employee
+    //For particular Employee with PathVariable
     @GetMapping("/empinfoall/{name}")
-    public ArrayList<Employees> getEmployeesInfo(@PathVariable String name){
+    public ArrayList<Employees> getEmployeesInfoPathVariable(@PathVariable String name){
+        ArrayList<Employees> employeesArrayList = new ArrayList<Employees>();
+        System.out.println(name);
+        if(name.equals("sam")){
+            employeesArrayList.add(new Employees(1, "Sam", "NY", "CEO"));
+        } else if (name.equals("dipi")) {
+            employeesArrayList.add(new Employees(2, "Dipi", "CT", "VP"));
+        } else if (name.equals("vraj")) {
+            employeesArrayList.add(new Employees(3, "Vraj", "TX", "Director"));
+        } else if (name.equals("jiyaan")) {
+            employeesArrayList.add(new Employees(4, "Jiyaan", "NJ", "Manager"));
+        } else {
+            return null;
+        }
+        return employeesArrayList;
+    }
+
+    //For particular Employee with RequestParam - http://localhost:8080/empinfoallrequestparam?name=sam
+    @GetMapping("/empinfoallrequestparam")
+    public ArrayList<Employees> getEmployeesInfoRequestParam(@RequestParam (value = "name", required = false) String name){
         ArrayList<Employees> employeesArrayList = new ArrayList<Employees>();
         System.out.println(name);
         if(name.equals("sam")){
