@@ -38,3 +38,10 @@ To enable these features, add the spring-boot-devtools dependency to your projec
 dependencies {
 developmentOnly("org.springframework.boot:spring-boot-devtools")
 }
+````
+
+### Just for the IntelliJ Idea - Following below settings
+
+File --> Settings --> Advanced Settings --> Compiler --> Allow auto-make to start even if developed application is currently running
+
+File --> Settings --> Build, Execution, Deployment --> Compiler --> Build project automatically
