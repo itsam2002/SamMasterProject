@@ -58,5 +58,45 @@ Dao {
         return "Record has been inserted successfully";
 
     }
+
+    public String updateActor(String last_name, int actor_id) throws SQLException, ClassNotFoundException {
+
+        //Get it from DBConnection Class
+        Connection con = DBConnection.DBConnect();
+
+        PreparedStatement pst = con.prepareStatement("UPDATE actor SET last_name = ? WHERE actor_id = ?");
+        pst.setString(1, last_name);
+        pst.setInt(2, actor_id);
+        pst.executeUpdate();
+
+        return "Record has been updated successfully";
+
+    }
+
+    public String updateActorAll(Actor actor) throws SQLException, ClassNotFoundException {
+
+        //Get it from DBConnection Class
+        Connection con = DBConnection.DBConnect();
+
+        PreparedStatement pst = con.prepareStatement("UPDATE actor SET first_name = ?, last_name = ? WHERE actor_id = ?");
+        pst.setString(1, actor.getFirst_name());
+        pst.setString(2, actor.getLast_name());
+        pst.setInt(3, actor.getActor_id());
+        pst.executeUpdate();
+
+        return "Record has been updated successfully";
+
+    }
+
+    public String deleteActor(int actor_id) throws SQLException, ClassNotFoundException {
+
+        Connection con = DBConnection.DBConnect();
+        PreparedStatement pst = con.prepareStatement("delete from actor WHERE actor_id = ?");
+        pst.setInt(1, actor_id);
+        pst.executeUpdate();
+        String deletemsg = "Record has been deleted";
+        return deletemsg;
+
+    }
 }
 

@@ -21,4 +21,17 @@ public class ActorService {
     public String saveActor(Actor actor) throws SQLException, ClassNotFoundException {
         return dao.insertActor(actor);
     }
+
+    public String updateActor(String last_name, int actor_id) throws SQLException, ClassNotFoundException {
+        return dao.updateActor(last_name, actor_id);
+    }
+
+    public String updateActorAll(Actor actor) throws SQLException, ClassNotFoundException {
+        return dao.updateActorAll(actor);
+    }
+
+    public String deleteActor(int actor_id) throws SQLException, ClassNotFoundException {
+        String deletemsg = dao.deleteActor(actor_id);
+        return deletemsg;
+    }
 }
