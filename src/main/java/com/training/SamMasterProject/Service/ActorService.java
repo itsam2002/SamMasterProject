@@ -18,6 +18,10 @@ public class ActorService {
         return dao.getActors();
     }
 
+    public Actor getActor(int actor_id) throws SQLException, ClassNotFoundException {
+        return dao.getActor(actor_id);
+    }
+
     public String saveActor(Actor actor) throws SQLException, ClassNotFoundException {
         return dao.insertActor(actor);
     }

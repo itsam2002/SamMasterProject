@@ -41,6 +41,32 @@ Dao {
         return actorlist;
     }
 
+    public Actor getActor(int actor_id) throws ClassNotFoundException, SQLException {
+
+        Actor actor = null;
+
+        //Get it from DBConnection Class
+        Connection con = DBConnection.DBConnect();
+
+        //Retrive the data in the form of ResultSet
+        PreparedStatement pst = con.prepareStatement("SELECT * FROM sakila.actor where actor_id = ?");
+
+        pst.setInt(1, actor_id);
+
+        ResultSet rs = pst.executeQuery();
+
+        //To get one record at a time until finish
+        while (rs.next()){
+            int actor_iid =  rs.getInt("actor_id");
+            String actor_first_name = rs.getString("first_name");
+            String actor_last_name = rs.getString("last_name");
+            Date last_update = rs.getDate("last_update");
+
+            actor = new Actor(actor_iid, actor_first_name, actor_last_name, last_update);
+        }
+            return actor;
+    }
+
     public String insertActor(Actor actor) throws SQLException, ClassNotFoundException {
 
         //Get it from DBConnection Class

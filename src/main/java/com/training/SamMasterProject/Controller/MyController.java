@@ -19,6 +19,11 @@ public class MyController {
         return actorService.getActorList();
     }
 
+    @GetMapping("/actors/{actor_id}")
+    public Actor getActor(@PathVariable int actor_id) throws SQLException, ClassNotFoundException {
+        return actorService.getActor(actor_id);
+    }
+
     @PostMapping("/postactor")
     public String postActor(@RequestBody Actor actor) throws SQLException, ClassNotFoundException {
         return actorService.saveActor(actor);
